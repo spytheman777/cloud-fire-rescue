@@ -43,7 +43,7 @@ export default function StartPage({
           인공강우 작전을 수행하세요
         </div>
 
-        {/* 버튼 */}
+        {/* 버튼 영역 */}
         <div
           style={{
             display: "flex",
@@ -55,7 +55,7 @@ export default function StartPage({
             alignItems: "center",
           }}
         >
-          {/* 상황실 */}
+          {/* 학생용 */}
           <button
             style={{
               ...styles.button,
@@ -68,6 +68,28 @@ export default function StartPage({
                 "28px 34px",
             }}
             onClick={() =>
+              setPage("team")
+            }
+          >
+            🎓 학생용 미션 시작
+          </button>
+
+          {/* 조별 상황실 */}
+          <button
+            style={{
+              ...styles.button,
+
+              width: "460px",
+
+              fontSize: "32px",
+
+              padding:
+                "28px 34px",
+
+              background:
+                "linear-gradient(135deg,#0ea5e9,#0284c7)",
+            }}
+            onClick={() =>
               setPage(
                 "teacherStart"
               )
@@ -76,7 +98,7 @@ export default function StartPage({
             📺 조별 상황실
           </button>
 
-          {/* 중앙본부 */}
+          {/* 중앙 재난본부 */}
           <button
             style={{
               ...styles.button,
