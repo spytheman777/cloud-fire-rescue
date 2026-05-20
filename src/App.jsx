@@ -1,75 +1,65 @@
 import { useState } from "react";
 
 import StartPage from "./pages/StartPage";
-import TeamPage from "./pages/TeamPage";
-import RolePage from "./pages/RolePage";
-import OXQuizPage from "./pages/OXQuizPage";
-import MultipleChoicePage from "./pages/MultipleChoicePage";
-import SequencePage from "./pages/SequencePage";
-import ResultPage from "./pages/ResultPage";
+
+import TeacherStartPage from "./pages/TeacherStartPage";
+
+import TeacherMainPage from "./pages/TeacherMainPage";
+
+import CentralDashboardPage from "./pages/CentralDashboardPage";
 
 export default function App() {
   const [page, setPage] =
     useState("start");
 
-  const [selectedTeam, setSelectedTeam] =
+  const [teacherTeam, setTeacherTeam] =
     useState("");
 
-  const [selectedRole, setSelectedRole] =
-    useState("");
+  const [members, setMembers] =
+    useState([]);
 
+  // 시작
   if (page === "start") {
     return (
       <StartPage setPage={setPage} />
     );
   }
 
-  if (page === "team") {
+  // 상황실 로그인
+  if (
+    page === "teacherStart"
+  ) {
     return (
-      <TeamPage
+      <TeacherStartPage
         setPage={setPage}
-        setSelectedTeam={setSelectedTeam}
+        setTeacherTeam={
+          setTeacherTeam
+        }
+        setMembers={setMembers}
       />
     );
   }
 
-  if (page === "role") {
+  // 조별 상황실
+  if (
+    page === "teacherMain"
+  ) {
     return (
-      <RolePage
-        setPage={setPage}
-        setSelectedRole={setSelectedRole}
+      <TeacherMainPage
+        teacherTeam={
+          teacherTeam
+        }
+        members={members}
       />
     );
   }
 
-  if (page === "ox") {
+  // 중앙 대시보드
+  if (
+    page === "dashboard"
+  ) {
     return (
-      <OXQuizPage setPage={setPage} />
-    );
-  }
-
-  if (page === "multiple") {
-    return (
-      <MultipleChoicePage
-        setPage={setPage}
-      />
-    );
-  }
-
-  if (page === "sequence") {
-    return (
-      <SequencePage
-        setPage={setPage}
-      />
-    );
-  }
-
-  if (page === "result") {
-    return (
-      <ResultPage
-        selectedRole={selectedRole}
-        selectedTeam={selectedTeam}
-      />
+      <CentralDashboardPage />
     );
   }
 

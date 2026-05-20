@@ -1,27 +1,108 @@
 import styles from "./styles";
 
-export default function StartPage({ setPage }) {
+export default function StartPage({
+  setPage,
+}) {
   return (
     <div style={styles.center}>
-      <div style={styles.glass}>
-        <h1 style={styles.title}>
-          🚨 전국 산불 발생
+      <div
+        style={{
+          ...styles.glass,
+
+          textAlign: "center",
+
+          maxWidth: "920px",
+        }}
+      >
+        <h1
+          style={{
+            ...styles.title,
+
+            marginBottom: "20px",
+          }}
+        >
+          🌩️ 구름 생성
+          재난 대응 시스템
         </h1>
 
-        <p style={styles.text}>
-          기상과학소방청은
-          <br />
-          구름 생성 원리를 활용하여
-          <br />
-          강수를 유도하고 산불을 진화해야 합니다.
-        </p>
+        <div
+          style={{
+            fontSize: "28px",
 
-        <button
-          style={styles.button}
-          onClick={() => setPage("team")}
+            lineHeight: 1.7,
+
+            color: "#475569",
+
+            fontWeight: "700",
+
+            marginBottom: "60px",
+          }}
         >
-          프로젝트 시작
-        </button>
+          대한민국 기상과학소방청과 함께
+          <br />
+          인공강우 작전을 수행하세요
+        </div>
+
+        {/* 버튼 */}
+        <div
+          style={{
+            display: "flex",
+
+            flexDirection: "column",
+
+            gap: "24px",
+
+            alignItems: "center",
+          }}
+        >
+          {/* 상황실 */}
+          <button
+            style={{
+              ...styles.button,
+
+              width: "460px",
+
+              fontSize: "32px",
+
+              padding:
+                "28px 34px",
+            }}
+            onClick={() =>
+              setPage(
+                "teacherStart"
+              )
+            }
+          >
+            📺 조별 상황실
+          </button>
+
+          {/* 중앙본부 */}
+          <button
+            style={{
+              ...styles.button,
+
+              width: "460px",
+
+              fontSize: "32px",
+
+              padding:
+                "28px 34px",
+
+              background:
+                "linear-gradient(135deg,#7f1d1d,#dc2626)",
+
+              boxShadow:
+                "0 14px 32px rgba(127,29,29,0.3)",
+            }}
+            onClick={() =>
+              setPage(
+                "dashboard"
+              )
+            }
+          >
+            🚨 중앙 재난본부
+          </button>
+        </div>
       </div>
     </div>
   );
