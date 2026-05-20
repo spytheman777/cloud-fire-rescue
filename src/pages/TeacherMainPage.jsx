@@ -165,9 +165,6 @@ function SortableCard({
 
     justifyContent:
       "center",
-
-    transition:
-      "all 0.25s ease",
   };
 
   return (
@@ -213,23 +210,45 @@ export default function TeacherMainPage({
   const [success, setSuccess] =
     useState(false);
 
+  const [failed, setFailed] =
+    useState(false);
+
   // 10분 타이머
   const [timeLeft, setTimeLeft] =
     useState(600);
 
-  // 경보 깜빡임
+  // 깜빡임
   const [flash, setFlash] =
     useState(false);
+
+  // 초기화
+  function handleReset() {
+    setItems(
+      shuffle(steps)
+    );
+
+    setChecked(false);
+
+    setSuccess(false);
+
+    setFailed(false);
+
+    setTimeLeft(600);
+  }
 
   // 카운트다운
   useEffect(() => {
     const timer =
       setInterval(() => {
         setTimeLeft(
-          (prev) =>
-            prev > 0
-              ? prev - 1
-              : 0
+          (prev) => {
+            if (prev <= 1) {
+              setFailed(true);
+              return 0;
+            }
+
+            return prev - 1;
+          }
         );
       }, 1000);
 
@@ -320,6 +339,74 @@ export default function TeacherMainPage({
     setSuccess(correct);
   }
 
+  // 실패 화면
+  if (failed && !success) {
+    return (
+      <div
+        style={{
+          ...styles.page,
+
+          background:
+            "linear-gradient(180deg,#7f1d1d,#111827)",
+
+          color: "white",
+
+          justifyContent:
+            "center",
+
+          textAlign: "center",
+        }}
+      >
+        <div
+          style={{
+            fontSize: "120px",
+
+            marginBottom: "30px",
+          }}
+        >
+          🔥
+        </div>
+
+        <div
+          style={{
+            fontSize: "64px",
+
+            fontWeight: "900",
+
+            marginBottom: "30px",
+          }}
+        >
+          산불 확산
+        </div>
+
+        <div
+          style={{
+            fontSize: "34px",
+
+            lineHeight: 1.8,
+
+            color: "#fecaca",
+
+            fontWeight: "700",
+
+            marginBottom: "40px",
+          }}
+        >
+          인공강우 작전에 실패했습니다.
+          <br />
+          산불이 전국으로 확산됩니다.
+        </div>
+
+        <button
+          style={styles.button}
+          onClick={handleReset}
+        >
+          🔄 다시 시작
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div
       style={{
@@ -331,7 +418,7 @@ export default function TeacherMainPage({
           "background 0.4s ease",
       }}
     >
-      {/* 좌측 경보 */}
+      {/* 경보 */}
       <div
         style={{
           position: "fixed",
@@ -358,9 +445,6 @@ export default function TeacherMainPage({
           fontWeight: "900",
 
           zIndex: 999,
-
-          boxShadow:
-            "0 12px 24px rgba(15,23,42,0.2)",
         }}
       >
         🔥 산불 위험 경보
@@ -393,9 +477,6 @@ export default function TeacherMainPage({
           fontWeight: "900",
 
           zIndex: 999,
-
-          boxShadow:
-            "0 12px 24px rgba(15,23,42,0.2)",
         }}
       >
         ⏱️ {minutes}:
@@ -520,6 +601,16 @@ export default function TeacherMainPage({
             textAlign: "center",
 
             marginTop: "44px",
+
+            display: "flex",
+
+            flexDirection:
+              "column",
+
+            gap: "16px",
+
+            alignItems:
+              "center",
           }}
         >
           <button
@@ -534,6 +625,18 @@ export default function TeacherMainPage({
             onClick={handleCheck}
           >
             🔍 정답 확인
+          </button>
+
+          <button
+            style={{
+              ...styles.button,
+
+              background:
+                "linear-gradient(135deg,#475569,#334155)",
+            }}
+            onClick={handleReset}
+          >
+            🔄 전체 초기화
           </button>
         </div>
 
@@ -553,7 +656,7 @@ export default function TeacherMainPage({
                 marginBottom: "18px",
               }}
             >
-              🔐
+              🌧️
             </div>
 
             <div
@@ -567,6 +670,20 @@ export default function TeacherMainPage({
                 marginBottom: "28px",
               }}
             >
+              인공강우 성공
+            </div>
+
+            <div
+              style={{
+                fontSize: "32px",
+
+                fontWeight: "800",
+
+                color: "#334155",
+
+                marginBottom: "28px",
+              }}
+            >
               암호 숫자 :
               {" "}
               {
@@ -576,7 +693,6 @@ export default function TeacherMainPage({
               }
             </div>
 
-            {/* 실험 준비 */}
             <div
               style={{
                 background:
@@ -586,9 +702,6 @@ export default function TeacherMainPage({
                   "30px",
 
                 padding: "38px",
-
-                boxShadow:
-                  "0 14px 34px rgba(15,23,42,0.1)",
               }}
             >
               <div
