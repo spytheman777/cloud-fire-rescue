@@ -1,112 +1,115 @@
 import styles from "./styles";
 
-// 역할별 단계
-const steps = {
-  소방청대장: "공기 상승",
-
-  기상분석관: "단열팽창",
-
-  실험과학자: "기온 하강",
-
-  재난대응팀장:
-    "상대습도 증가",
-
-  구름씨앗연구원:
-    "구름 생성",
-};
-
-// 조별 색상
-const teamColors = {
-  경기도: {
-    "공기 상승": "#ef4444",
-
-    단열팽창: "#3b82f6",
-
-    "기온 하강": "#22c55e",
-
-    "상대습도 증가":
-      "#eab308",
-
-    "구름 생성": "#ffffff",
-  },
-
-  강원도: {
-    "공기 상승": "#22c55e",
-
-    단열팽창: "#ef4444",
-
-    "기온 하강": "#a855f7",
-
-    "상대습도 증가":
-      "#3b82f6",
-
-    "구름 생성": "#ffffff",
-  },
-
-  충청도: {
-    "공기 상승": "#f97316",
-
-    단열팽창: "#06b6d4",
-
-    "기온 하강": "#eab308",
-
-    "상대습도 증가":
-      "#8b5cf6",
-
-    "구름 생성": "#ffffff",
-  },
-
-  전라도: {
-    "공기 상승": "#8b5cf6",
-
-    단열팽창: "#22c55e",
-
-    "기온 하강": "#ef4444",
-
-    "상대습도 증가":
-      "#06b6d4",
-
-    "구름 생성": "#ffffff",
-  },
-
-  경상도: {
-    "공기 상승": "#06b6d4",
-
-    단열팽창: "#f97316",
-
-    "기온 하강": "#22c55e",
-
-    "상대습도 증가":
-      "#ef4444",
-
-    "구름 생성": "#ffffff",
-  },
-
-  제주도: {
-    "공기 상승": "#eab308",
-
-    단열팽창: "#8b5cf6",
-
-    "기온 하강": "#3b82f6",
-
-    "상대습도 증가":
-      "#22c55e",
-
-    "구름 생성": "#ffffff",
-  },
-};
-
 export default function ResultPage({
   selectedRole,
   selectedTeam,
 }) {
-  const step =
-    steps[selectedRole];
+  // 역할 이름
+  const roleNames = {
+    소방청대장:
+      "소방청대장",
 
-  const color =
-    teamColors[selectedTeam]?.[
-      step
-    ] || "#ffffff";
+    기상분석관:
+      "기상분석관",
+
+    실험과학자:
+      "실험과학자",
+
+    재난대응팀장:
+      "재난대응팀장",
+
+    구름씨앗연구원:
+      "구름씨앗연구원",
+  };
+
+  // 역할 순서
+  const roleIndex = {
+    소방청대장: 0,
+
+    기상분석관: 1,
+
+    실험과학자: 2,
+
+    재난대응팀장: 3,
+
+    구름씨앗연구원: 4,
+  };
+
+  // 구름 생성 힌트
+  const concepts = [
+    "공기상승",
+
+    "단열팽창",
+
+    "기온하강",
+
+    "포화수증기량 감소",
+
+    "상대습도 증가",
+  ];
+
+  // 조별 색상 배열
+  const teamColors = {
+    경기도: [
+      "#ef4444",
+      "#3b82f6",
+      "#22c55e",
+      "#facc15",
+      "#ffffff",
+    ],
+
+    강원도: [
+      "#22c55e",
+      "#ef4444",
+      "#ffffff",
+      "#3b82f6",
+      "#facc15",
+    ],
+
+    충청도: [
+      "#f97316",
+      "#06b6d4",
+      "#ef4444",
+      "#8b5cf6",
+      "#22c55e",
+    ],
+
+    전라도: [
+      "#8b5cf6",
+      "#22c55e",
+      "#3b82f6",
+      "#ef4444",
+      "#facc15",
+    ],
+
+    경상도: [
+      "#06b6d4",
+      "#f97316",
+      "#22c55e",
+      "#ef4444",
+      "#ffffff",
+    ],
+
+    제주도: [
+      "#facc15",
+      "#8b5cf6",
+      "#3b82f6",
+      "#22c55e",
+      "#ef4444",
+    ],
+  };
+
+  const index =
+    roleIndex[selectedRole];
+
+  const cardText =
+    concepts[index];
+
+  const cardColor =
+    teamColors[
+      selectedTeam
+    ]?.[index] ||
+    "#3b82f6";
 
   return (
     <div style={styles.center}>
@@ -119,15 +122,15 @@ export default function ResultPage({
           maxWidth: "760px",
         }}
       >
-        {/* 성공 아이콘 */}
+        {/* 아이콘 */}
         <div
           style={{
-            fontSize: "72px",
+            fontSize: "90px",
 
-            marginBottom: "18px",
+            marginBottom: "24px",
           }}
         >
-          🎉
+          🌩️
         </div>
 
         {/* 제목 */}
@@ -135,88 +138,130 @@ export default function ResultPage({
           style={{
             ...styles.title,
 
-            marginBottom: "18px",
+            marginBottom: "20px",
           }}
         >
-          임무 완료!
+          임무 성공
         </h1>
 
-        {/* 안내 */}
+        {/* 역할 */}
+        <div
+          style={{
+            fontSize: "30px",
+
+            fontWeight: "800",
+
+            color: "#334155",
+
+            marginBottom: "30px",
+          }}
+        >
+          {
+            roleNames[
+              selectedRole
+            ]
+          }
+        </div>
+
+        {/* 설명 */}
         <div
           style={{
             fontSize: "24px",
 
+            lineHeight: 1.8,
+
             color: "#475569",
 
-            marginBottom: "42px",
+            marginBottom: "40px",
 
             fontWeight: "700",
-
-            lineHeight: 1.6,
           }}
         >
-          기상분석관에게
+          구름 생성 핵심 힌트를
+          확보했습니다.
           <br />
-          아래 힌트를 전달하세요
+          조원들과 힌트를 공유하세요.
         </div>
 
         {/* 힌트 카드 */}
         <div
           style={{
-            background: color,
+            background:
+              "rgba(255,255,255,0.55)",
 
-            borderRadius: "34px",
+            borderRadius:
+              "28px",
 
-            padding: "50px",
+            padding: "34px",
 
-            border:
-              step === "구름 생성"
-                ? "3px solid #cbd5e1"
-                : "none",
+            display: "flex",
 
-            boxShadow:
-              `0 20px 40px ${color}55`,
+            flexDirection:
+              "column",
+
+            alignItems: "center",
+
+            gap: "22px",
           }}
         >
           <div
             style={{
-              fontSize: "52px",
+              fontSize: "22px",
+
+              color: "#64748b",
+
+              fontWeight: "700",
+            }}
+          >
+            확보한 카드 힌트
+          </div>
+
+          {/* 카드 */}
+          <div
+            style={{
+              width: "280px",
+
+              height: "140px",
+
+              borderRadius:
+                "28px",
+
+              background:
+                cardColor,
+
+              border:
+                cardColor ===
+                "#ffffff"
+                  ? "4px solid #cbd5e1"
+                  : "none",
+
+              boxShadow:
+                "0 16px 36px rgba(15,23,42,0.16)",
+
+              display: "flex",
+
+              alignItems: "center",
+
+              justifyContent:
+                "center",
+
+              fontSize: "30px",
 
               fontWeight: "900",
 
               color:
-                step === "구름 생성"
+                cardColor ===
+                "#ffffff"
                   ? "#0f172a"
                   : "white",
 
-              textShadow:
-                step === "구름 생성"
-                  ? "none"
-                  : "0 2px 10px rgba(0,0,0,0.25)",
+              textAlign: "center",
+
+              padding: "20px",
             }}
           >
-            {step}
+            {cardText}
           </div>
-        </div>
-
-        {/* 하단 안내 */}
-        <div
-          style={{
-            marginTop: "40px",
-
-            fontSize: "20px",
-
-            color: "#64748b",
-
-            lineHeight: 1.7,
-
-            fontWeight: "600",
-          }}
-        >
-          조원들의 힌트를 모아
-          <br />
-          스탠바이미 퍼즐을
-          완성하세요
         </div>
       </div>
     </div>

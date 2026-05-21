@@ -1,7 +1,9 @@
 import { useState } from "react";
 
-// 학생용
+// 시작화면
 import StartPage from "./pages/StartPage";
+
+// 학생용
 import TeamPage from "./pages/TeamPage";
 import RolePage from "./pages/RolePage";
 import OXQuizPage from "./pages/OXQuizPage";
@@ -41,19 +43,22 @@ export default function App() {
     );
   }
 
-  // 학생용 조 선택
+  // 학생 팀 선택
   if (page === "team") {
     return (
       <TeamPage
-        setPage={setPage}
-        setSelectedTeam={
-          setSelectedTeam
-        }
+  setPage={setPage}
+  selectedTeam={
+    selectedTeam
+  }
+  setSelectedTeam={
+    setSelectedTeam
+  }
       />
     );
   }
 
-  // 학생 역할 선택
+  // 역할 선택
   if (page === "role") {
     return (
       <RolePage
@@ -65,7 +70,7 @@ export default function App() {
     );
   }
 
-  // OX
+  // OX 퀴즈
   if (page === "ox") {
     return (
       <OXQuizPage
@@ -85,7 +90,7 @@ export default function App() {
     );
   }
 
-  // 순서배열
+  // 순서 배열
   if (
     page === "sequence"
   ) {
@@ -96,12 +101,15 @@ export default function App() {
     );
   }
 
-  // 결과
+  // 결과 화면
   if (page === "result") {
     return (
       <ResultPage
         selectedRole={
           selectedRole
+        }
+        selectedTeam={
+          selectedTeam
         }
       />
     );
@@ -136,7 +144,7 @@ export default function App() {
     );
   }
 
-  // 중앙본부
+  // 중앙 재난본부
   if (
     page === "dashboard"
   ) {
